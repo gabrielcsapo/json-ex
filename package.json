@@ -1,0 +1,42 @@
+{
+  "name": "json-ex",
+  "version": "0.0.1",
+  "author": "Gabriel J. Csapo <gabecsapo@gmail.com>",
+  "license": "MIT",
+  "description": "Extends JSON to  be able to serialize and deserialize more than just basic primitives",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabrielcsapo/json-ex"
+  },
+  "keywords": [
+    "stringify object with function",
+    "stringify object with regexp",
+    "stringify with function",
+    "JSON with regex",
+    "JSON stringify with functions"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "test": "tape test/**.js | tap-diff",
+    "coverage": "tap test/**.js --coverage --coverage-report=lcov",
+    "build": "browserify index.js --standalone JSONex > dist/jsonex.js; cat dist/jsonex.js | uglifyjs -c > dist/jsonex.min.js; cp dist/jsonex.min.js doc/jsonex.min.js;browserify -r ./index.js:json-ex > dist/jsonex.require.js;",
+    "generate-docs": "pug doc/index.pug doc/index.html"
+  },
+  "main": "./jsonfn",
+  "engine": {
+    "node": ">= 4"
+  },
+  "devDependencies": {
+    "ace-builds": "^1.2.6",
+    "browserify": "^14.3.0",
+    "eslint": "^3.19.0",
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "psychic-ui": "^1.0.6",
+    "pug-cli": "^1.0.0-alpha6",
+    "tap": "^10.3.2",
+    "tap-diff": "^0.1.1",
+    "tape": "^4.6.3",
+    "uglifyify": "^3.0.4"
+  }
+}
