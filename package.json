@@ -19,8 +19,8 @@
     "lint": "eslint .",
     "test": "tape test/**.js | tap-diff",
     "coverage": "tap test/**.js --coverage --coverage-report=lcov",
-    "build": "browserify index.js --standalone JSONex > dist/jsonex.js; cat dist/jsonex.js | uglifyjs -c > dist/jsonex.min.js; cp dist/jsonex.min.js doc/jsonex.min.js;browserify -r ./index.js:json-ex > dist/jsonex.require.js;",
-    "generate-docs": "pug doc/index.pug doc/index.html"
+    "build": "browserify index.js --standalone JSONex > dist/jsonex.js; cat dist/jsonex.js | uglifyjs -c > dist/jsonex.min.js; browserify -r ./index.js:json-ex > dist/jsonex.require.js; cp dist/jsonex.require.js docs/jsonex.require.js;",
+    "generate-docs": "pug docs/index.pug docs/index.html"
   },
   "main": "./jsonfn",
   "engine": {
