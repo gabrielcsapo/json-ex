@@ -1,29 +1,25 @@
 module.exports = {
     stringify: function stringify(obj) {
-
-        var iso8061 = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/;
-
         return JSON.stringify(obj, function(key, value) {
-            var fnBody;
+            if (obj[key] instanceof Function) {
+                var fnBody = JSON.stringify(value.toString());
 
-            if (value instanceof Function || typeof value == 'function') {
-                fnBody = value.toString();
-
-                if (fnBody.length < 8 || fnBody.substring(0, 8) !== 'function') { //this is ES6 Arrow Function
-                    return '_NuFrRa_' + fnBody;
+                if (fnBody.length < 8 || fnBody.substring(1, 9) !== 'function') { //this is ES6 Arrow Function
+                    return '_NuFrRa_' + fnBody
                 }
-                return fnBody;
+
+                return '_FuncRa_' + fnBody
             }
 
-            if (value && value && value.match && value.match(iso8061)) {
+            if (obj[key] instanceof Date) {
                 return '_DateEx_' + value;
             }
             if (value instanceof RegExp) {
                 return '_PxEgEr_' + value;
             }
             // if it is an object check if that object has a class
-            if (typeof value === 'object' && obj[key]) {
-                return '_BuffEx_' + JSON.stringify(value);
+            if (obj[key] instanceof Buffer) {
+                return '_BuffEx_' + JSON.stringify(obj[key]);
             }
             return value;
         });
@@ -42,14 +38,14 @@ module.exports = {
 
             prefix = value.substring(0, 8);
 
-            if (prefix === 'function') {
-                return eval('(' + value + ')');
+            if (prefix === '_FuncRa_') {
+                return eval('(' + JSON.parse(value.slice(8)) + ')');
             }
             if (prefix === '_NuFrRa_') {
-                return eval(value.slice(8));
+                return eval(JSON.parse(value.slice(8)));
             }
             if (prefix === '_PxEgEr_') {
-                return eval(value.slice(8));
+                return new RegExp(value.slice(8));
             }
             if (prefix === '_DateEx_') {
                 return new Date(value.slice(8));
