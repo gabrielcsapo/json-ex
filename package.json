@@ -40,5 +40,8 @@
     "tap-diff": "^0.1.1",
     "tape": "^4.6.3",
     "uglifyify": "^3.0.4"
+  },
+  "dependencies": {
+    "harmony-reflect": "^1.5.1"
   }
 }

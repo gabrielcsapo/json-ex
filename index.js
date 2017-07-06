@@ -1,6 +1,35 @@
+"use strict";
+
+var Reflect = require('harmony-reflect');
+
+function isClass(obj) {
+  const isCtorClass = obj && obj.constructor
+      && obj.constructor.toString().substring(0, 5) === 'class'
+  if(obj && obj.prototype === undefined) {
+    return isCtorClass
+  }
+  const isPrototypeCtorClass = obj && obj.prototype && obj.prototype.constructor
+    && obj.prototype.constructor.toString
+    && obj.prototype.constructor.toString().substring(0, 5) === 'class'
+  return isCtorClass || isPrototypeCtorClass
+}
+
 module.exports = {
     stringify: function stringify(obj) {
         return JSON.stringify(obj, function(key, value) {
+            if (isClass(value)) {
+                var prototype = Reflect.getPrototypeOf(value);
+                var instance = {};
+                Object.getOwnPropertyNames(value).forEach(function(k) {
+                    instance[k] = value[k];
+                });
+
+                return '_IuFrRa_' + JSON.stringify({
+                  instance: stringify(instance),
+                  constructor: prototype.constructor.toString()
+                });
+            }
+
             if (obj[key] instanceof Function) {
                 var fnBody = JSON.stringify(value.toString());
 
@@ -52,6 +81,18 @@ module.exports = {
             }
             if (prefix === '_BuffEx_') {
                 return new Buffer(JSON.parse(value.slice(8)));
+            }
+            if (prefix === '_IuFrRa_') {
+                var value = JSON.parse(value.slice(8));
+                var newInstance = null;
+                (() => {
+                    var _class = eval(`${value.constructor}`);
+                    var _inst = parse(value.instance);
+
+                    newInstance = new _class();
+                    newInstance = Object.assign(newInstance, _inst);
+                })();
+                return newInstance;
             }
 
             return value;
