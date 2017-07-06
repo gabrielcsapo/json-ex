@@ -1,10 +1,12 @@
+"use strict";
+
 const test = require('tape');
 
 const JSONex = require('../index');
 const moment = require('moment');
 
 test('json-ex', (t) => {
-    t.plan(4);
+    t.plan(5);
 
     t.test('should be able to stringify a basic javascript object', (t) => {
         const object = {
@@ -70,4 +72,30 @@ test('json-ex', (t) => {
         t.equal(parsed.quickFunc(), 'hello world');
         t.end();
     });
+
+    t.test('should work with complex classes', (t) => {
+        class A {
+            constructor() {
+                this.a = 'hello';
+                this.v = () => this.a + ' world';
+            }
+            t() {
+                return this.a;
+            }
+        }
+        const instance = new A();
+        instance.b = 'bye';
+
+        const d = JSONex.stringify(instance)
+        t.deepEqual(d, '"_IuFrRa_{\\"instance\\":\\"{\\\\\\"a\\\\\\":\\\\\\"hello\\\\\\",\\\\\\"v\\\\\\":\\\\\\"_NuFrRa_\\\\\\\\\\\\\\"() => this.a + \' world\'\\\\\\\\\\\\\\"\\\\\\",\\\\\\"b\\\\\\":\\\\\\"bye\\\\\\"}\\",\\"constructor\\":\\"class A {\\\\n            constructor() {\\\\n                this.a = \'hello\';\\\\n                this.v = () => this.a + \' world\';\\\\n            }\\\\n            t() {\\\\n                return this.a;\\\\n            }\\\\n        }\\"}"');
+
+        const reInstance = JSONex.parse(d);
+        t.equal(reInstance.constructor.name, 'A');
+        t.equal(reInstance.a, 'hello');
+        t.equal(reInstance.b, 'bye');
+        t.equal(reInstance.v(), 'hello world');
+
+        t.end();
+    });
+
 });
