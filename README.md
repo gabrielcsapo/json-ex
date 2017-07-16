@@ -1,5 +1,7 @@
 # json-ex
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/gabrielcsapo/json-ex.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/gabrielcsapo/json-ex.svg?branch=master)](https://travis-ci.org/gabrielcsapo/json-ex)
 [![Dependency Status](https://david-dm.org/gabrielcsapo/json-ex.svg)](https://david-dm.org/gabrielcsapo/json-ex)
 [![devDependency Status](https://david-dm.org/gabrielcsapo/json-ex/dev-status.svg)](https://david-dm.org/gabrielcsapo/json-ex#info=devDependencies)
