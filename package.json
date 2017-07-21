@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Gabriel J. Csapo <gabecsapo@gmail.com>",
   "license": "MIT",
-  "description": "Extends JSON to  be able to serialize and deserialize more than just basic primitives",
+  "description": "Extends JSON to be able to serialize and deserialize more than just basic primitives",
   "repository": {
     "type": "git",
     "url": "https://github.com/gabrielcsapo/json-ex"
@@ -21,24 +21,21 @@
     "benchmark": "matcha",
     "coverage": "tap test/**.js --coverage --coverage-report=lcov",
     "build": "browserify index.js --standalone JSONex > dist/jsonex.js; cat dist/jsonex.js | uglifyjs -c > dist/jsonex.min.js; browserify -r ./index.js:json-ex > dist/jsonex.require.js; cp dist/jsonex.require.js docs/jsonex.require.js;",
-    "generate-docs": "pug docs/index.pug docs/index.html"
+    "generate-docs": "tryitout --output=./docs"
   },
-  "main": "./jsonfn",
+  "main": "./index.js",
   "engine": {
     "node": ">= 4"
   },
   "devDependencies": {
-    "ace-builds": "^1.2.6",
-    "browserify": "^14.3.0",
-    "eslint": "^4.2.0",
-    "jquery": "^3.2.1",
+    "browserify": "^14.4.0",
+    "eslint": "^4.3.0",
     "matcha": "^0.7.0",
     "moment": "^2.18.1",
-    "psychic-ui": "^1.0.6",
-    "pug-cli": "^1.0.0-alpha6",
-    "tap": "^10.3.2",
+    "tap": "^10.7.0",
     "tap-diff": "^0.1.1",
-    "tape": "^4.6.3",
-    "uglifyify": "^4.0.2"
+    "tape": "^4.7.0",
+    "tryitout": "0.0.4",
+    "uglifyify": "^4.0.3"
   }
 }

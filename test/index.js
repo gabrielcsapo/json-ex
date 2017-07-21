@@ -28,7 +28,7 @@ test('json-ex', (t) => {
             reg: new RegExp('%name%')
         };
         const output = JSONex.stringify(object);
-        t.equal(output, `{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_{\\"type\\":\\"Buffer\\",\\"data\\":[104,105]}","date":"_DateEx_${object.date.toISOString()}","func":"_FuncRa_\\"function hello() { return \'hello world\' }\\"","reg":"_PxEgEr_/%name%/"}`);
+        t.equal(output, `{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_{\\"type\\":\\"Buffer\\",\\"data\\":[104,105]}","date":"_DateEx_${object.date.toISOString()}","func":"_FuncRa_\\"function hello() { return 'hello world' }\\"","reg":"_PxEgEr_/%name%/"}`);
         t.end();
     });
 

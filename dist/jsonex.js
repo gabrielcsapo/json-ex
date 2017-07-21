@@ -2,30 +2,26 @@
 (function (Buffer){
 module.exports = {
     stringify: function stringify(obj) {
-
-        var iso8061 = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/;
-
         return JSON.stringify(obj, function(key, value) {
-            var fnBody;
+            if (obj[key] instanceof Function) {
+                var fnBody = JSON.stringify(value.toString());
 
-            if (value instanceof Function || typeof value == 'function') {
-                fnBody = value.toString();
-
-                if (fnBody.length < 8 || fnBody.substring(0, 8) !== 'function') { //this is ES6 Arrow Function
-                    return '_NuFrRa_' + fnBody;
+                if (fnBody.length < 8 || fnBody.substring(1, 9) !== 'function') { //this is ES6 Arrow Function
+                    return '_NuFrRa_' + fnBody
                 }
-                return fnBody;
+
+                return '_FuncRa_' + fnBody
             }
 
-            if (value && value && value.match && value.match(iso8061)) {
+            if (obj[key] instanceof Date) {
                 return '_DateEx_' + value;
             }
             if (value instanceof RegExp) {
                 return '_PxEgEr_' + value;
             }
             // if it is an object check if that object has a class
-            if (typeof value === 'object' && obj[key]) {
-                return '_BuffEx_' + JSON.stringify(value);
+            if (obj[key] instanceof Buffer) {
+                return '_BuffEx_' + JSON.stringify(obj[key]);
             }
             return value;
         });
@@ -44,14 +40,14 @@ module.exports = {
 
             prefix = value.substring(0, 8);
 
-            if (prefix === 'function') {
-                return eval('(' + value + ')');
+            if (prefix === '_FuncRa_') {
+                return eval('(' + JSON.parse(value.slice(8)) + ')');
             }
             if (prefix === '_NuFrRa_') {
-                return eval(value.slice(8));
+                return eval(JSON.parse(value.slice(8)));
             }
             if (prefix === '_PxEgEr_') {
-                return eval(value.slice(8));
+                return new RegExp(value.slice(8));
             }
             if (prefix === '_DateEx_') {
                 return new Date(value.slice(8));
@@ -102,22 +98,22 @@ function placeHoldersCount (b64) {
 
 function byteLength (b64) {
   // base64 is 4/3 + up to two characters of the original data
-  return b64.length * 3 / 4 - placeHoldersCount(b64)
+  return (b64.length * 3 / 4) - placeHoldersCount(b64)
 }
 
 function toByteArray (b64) {
-  var i, j, l, tmp, placeHolders, arr
+  var i, l, tmp, placeHolders, arr
   var len = b64.length
   placeHolders = placeHoldersCount(b64)
 
-  arr = new Arr(len * 3 / 4 - placeHolders)
+  arr = new Arr((len * 3 / 4) - placeHolders)
 
   // if there are placeholders, only get up to the last complete 4 chars
   l = placeHolders > 0 ? len - 4 : len
 
   var L = 0
 
-  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+  for (i = 0; i < l; i += 4) {
     tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
     arr[L++] = (tmp >> 16) & 0xFF
     arr[L++] = (tmp >> 8) & 0xFF
