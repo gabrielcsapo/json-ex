@@ -44618,7 +44618,7 @@ var Editor = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Editor.__proto__ || Object.getPrototypeOf(Editor)).call(this, props));
 
     _this.state = {
-      value: props.value,
+      value: cleanString(props.value),
       output: {},
       duration: 0
     };
@@ -44708,7 +44708,7 @@ var Editor = function (_React$Component) {
               theme: 'monokai',
               name: Date.now(),
               onChange: this.onChange.bind(this),
-              value: cleanString(value),
+              value: value,
               height: '317px',
               width: 'auto',
               editorProps: { $blockScrolling: true }
@@ -44728,11 +44728,11 @@ var Editor = function (_React$Component) {
               'div',
               { className: 'console' },
               _react2.default.createElement(
-                'div',
+                'span',
                 { className: 'output' },
                 !val && !cons ? 'Output from the example appears here' : '',
                 val ? _react2.default.createElement(
-                  'span',
+                  'pre',
                   null,
                   ' > ',
                   val,
@@ -44742,7 +44742,7 @@ var Editor = function (_React$Component) {
                 ) : '',
                 cons && cons.length > 0 ? cons.map(function (c, i) {
                   return _react2.default.createElement(
-                    'span',
+                    'pre',
                     { key: i },
                     ' ',
                     c,
@@ -44846,9 +44846,15 @@ var Container = function (_React$Component4) {
           description = _props2.description,
           docs = _props2.docs,
           source = _props2.source,
-          children = _props2.children;
+          children = _props2.children,
+          options = _props2.options;
+
+      var _ref = options || {},
+          _ref$width = _ref.width,
+          width = _ref$width === undefined ? "500px" : _ref$width;
 
       // Set the title of the window
+
 
       document.title = title;
 
@@ -44897,7 +44903,7 @@ var Container = function (_React$Component4) {
           ),
           _react2.default.createElement(
             'div',
-            { style: { width: '550px', margin: '0 auto' } },
+            { style: { width: width, margin: '0 auto' } },
             children
           )
         )
@@ -44913,6 +44919,7 @@ Container.propTypes = {
   description: _propTypes2.default.string,
   source: _propTypes2.default.string,
   docs: _propTypes2.default.string,
+  options: _propTypes2.default.object,
   children: _propTypes2.default.element.isRequired
 };
 
@@ -45118,7 +45125,7 @@ exports = module.exports = __webpack_require__(66)(undefined);
 
 
 // module
-exports.push([module.i, "/* Overrides */\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Open Sans', Helvetica, sans-serif;\n  width: 100%;\n  height: 100%;\n}\n\n.panel, .panel-body, .panel-footer, .panel-header {\n  border-radius: 0 !important;\n  padding: 0 !important;\n}\n\n.ace_editor {\n  font-size: 1em !important;\n}\n\ncode {\n  color: rgba(255, 0, 0, 0.67);\n  display: inline-block;\n  padding: 0;\n}\n\n#root {\n  padding-bottom: 60px;\n}\n\nblockquote {\n  margin: 0;\n}\n\n\n/* Custom */\n\n.description {\n  text-align: center;\n  font-weight: 100;\n  font-size: 18px;\n}\n\n.console {\n  border-top: 1px solid #CCC;\n  font-family: monospace;\n  padding: 2px 2px 2px 8px;\n  line-height: 28px;\n  min-height: 26px;\n}\n\n.console .output {\n  color: #666;\n  width: 80%;\n  display: inline-block;\n}\n\n.time {\n  color: #666;\n  font-family: monospace;\n  line-height: 13px;\n  padding: 8px;\n  font-size: 13px;\n}\n\n.run.btn {\n  margin: 10px;\n  float: right;\n  background-color: rgb(81, 163, 81);\n  color: white;\n  border-radius: 0px;\n  padding: 0 10px;\n  line-height: 28px;\n}\n", ""]);
+exports.push([module.i, "/* Overrides */\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Open Sans', Helvetica, sans-serif;\n  width: 100%;\n  height: 100%;\n}\n\n.panel, .panel-body, .panel-footer, .panel-header {\n  border-radius: 0 !important;\n  padding: 0 !important;\n}\n\n.ace_editor {\n  font-size: 1em !important;\n}\n\ncode {\n  color: rgba(255, 0, 0, 0.67);\n  display: inline-block;\n  padding: 0;\n}\n\n#root {\n  padding-bottom: 60px;\n}\n\nblockquote {\n  margin: 0;\n}\n\n\n/* Custom */\n\n.description {\n  text-align: center;\n  font-weight: 100;\n  font-size: 18px;\n}\n\n.console {\n  border-top: 1px solid #CCC;\n  font-family: monospace;\n  padding: 2px 2px 2px 8px;\n  line-height: 28px;\n  min-height: 26px;\n}\n\n.console .output {\n  color: #666;\n  width: 80%;\n  display: inline-block;\n}\n\n.console .output > pre {\n  padding: 0;\n  white-space: pre-wrap;\n  background-color: transparent;\n}\n\n.time {\n  color: #666;\n  font-family: monospace;\n  line-height: 13px;\n  padding: 8px;\n  font-size: 13px;\n}\n\n.run.btn {\n  margin: 10px;\n  float: right;\n  background-color: rgb(81, 163, 81);\n  color: white;\n  border-radius: 0px;\n  padding: 0 10px;\n  line-height: 28px;\n}\n", ""]);
 
 // exports
 
