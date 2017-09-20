@@ -25,7 +25,7 @@ module.exports = {
       title: "Decode",
       value: `
         var JSONex = require("json-ex");
-        var output = JSONex.parse('{\"name\":\"Hello world\",\"person\":true,\"age\":100000,\"date\":\"_DateEx_2017-10-20T07:00:00.000Z\",\"func\":\"function hello() { return \\'hello world\\' }\",\"reg\":\"_PxEgEr_/%name%/\"}');
+        var output = JSONex.parse('{"name":"Hello world","person":true,"age":100000,"date":"_DateEx_2017-10-20T07:00:00.000Z","func":"function hello() { return \\'hello world\\' }","reg":"_PxEgEr_/%name%/"}');
         console.log(output.func());
       `
     }],
