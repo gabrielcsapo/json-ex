@@ -52,7 +52,8 @@ const output = JSONex.stringify(object);
   "date": "_DateEx_2017-10-20T07%3A00%3A00.000Z",
   "func": "_FuncRa_function%20hello()%20%7B%20return%20&#39;hello%20world&#39;%20%7D",
   "reg": "_PxEgEr_%5B%22%25name%25%22%2C%22%22%5D"
-}```
+}
+```
 
 ### Parse
 
