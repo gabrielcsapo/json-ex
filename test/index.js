@@ -4,7 +4,7 @@ const JSONex = require('../index');
 const moment = require('moment');
 
 test('json-ex', (t) => {
-    t.plan(4);
+    t.plan(5);
 
     t.test('should be able to stringify a basic javascript object', (t) => {
         const object = {
@@ -28,12 +28,12 @@ test('json-ex', (t) => {
             reg: new RegExp('%name%')
         };
         const output = JSONex.stringify(object);
-        t.equal(output, `{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_{\\"type\\":\\"Buffer\\",\\"data\\":[104,105]}","date":"_DateEx_${object.date.toISOString()}","func":"_FuncRa_\\"function hello() { return 'hello world' }\\"","reg":"_PxEgEr_/%name%/"}`);
+        t.equal(output, `{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_{\\"type\\":\\"Buffer\\",\\"data\\":[104,105]}","date":"_DateEx_${object.date.toISOString()}","func":"_FuncRa_\\"function hello() { return 'hello world' }\\"","reg":"_PxEgEr_[\\"%name%\\",\\"\\"]"}`);
         t.end();
     });
 
     t.test('should be able to parse a complex object', (t) => {
-      const j = '{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_{\\"type\\":\\"Buffer\\",\\"data\\":[104,105]}","date":"_DateEx_2017-10-20T07:00:00.000Z","func":"_FuncRa_\\"function hello() { return \'hello world\' }\\"","reg":"_PxEgEr_/%name%/"}';
+      const j = '{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_{\\"type\\":\\"Buffer\\",\\"data\\":[104,105]}","date":"_DateEx_2017-10-20T07:00:00.000Z","func":"_FuncRa_\\"function hello() { return \'hello world\' }\\"","reg":"_PxEgEr_[\\"%name%\\",\\"\\"]"}';
       const parsed = JSONex.parse(j);
 
       t.equal(parsed.date.constructor.name, 'Date');
@@ -70,4 +70,17 @@ test('json-ex', (t) => {
         t.equal(parsed.quickFunc(), 'hello world');
         t.end();
     });
+    
+    t.test('should be able to stringify/parse RegExp with flags', (t) => {
+        const object = {
+          contrived: /example/i          
+        };
+        
+        const string = JSONex.stringify(object);
+        const parsed = JSONex.parse(string);
+        
+        t.equal(object.contrived.test('ExAmPlE'), true);
+        t.equal(parsed.contrived.test('ExAmPlE'), true);
+        t.end();
+    })
 });
