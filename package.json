@@ -1,6 +1,6 @@
 {
   "name": "json-ex",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Gabriel J. Csapo <gabecsapo@gmail.com>",
   "license": "MIT",
   "description": "Extends JSON to be able to serialize and deserialize more than just basic primitives",
@@ -17,25 +17,26 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "test": "tape test | tap-diff",
+    "test": "tape test",
     "benchmark": "matcha",
     "coverage": "tap test/**.js --coverage --coverage-report=lcov",
-    "build": "browserify index.js --standalone JSONex > dist/jsonex.js; cat dist/jsonex.js | uglifyjs -c > dist/jsonex.min.js; browserify -r ./index.js:json-ex > dist/jsonex.require.js; cp dist/jsonex.require.js docs/jsonex.require.js;",
+    "build": "browserify -r ./index.js:json-ex > dist/jsonex.js; cat dist/jsonex.js | uglifyjs -c > dist/jsonex.min.js;",
     "generate-docs": "tryitout"
   },
   "main": "./index.js",
   "engine": {
-    "node": ">= 4"
+    "node": ">= 6"
   },
   "devDependencies": {
     "browserify": "^14.4.0",
-    "eslint": "^4.7.1",
+    "eslint": "^4.7.2",
     "matcha": "^0.7.0",
     "moment": "^2.18.1",
     "tap": "^10.7.2",
     "tap-diff": "^0.1.1",
     "tape": "^4.8.0",
-    "tryitout": "^0.1.4",
-    "uglifyify": "^4.0.3"
+    "tryitout": "^0.2.1",
+    "uglify-js-es6": "^2.8.9",
+    "uglifyify": "^4.0.4"
   }
 }

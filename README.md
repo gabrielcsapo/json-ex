@@ -48,12 +48,11 @@ const output = JSONex.stringify(object);
   "name": "Hello world",
   "person": true,
   "age": 100000,
-  "buffer": "_BuffEx_{\"type\":\"Buffer\",\"data\":[104,105]}",
-  "date": "_DateEx_${object.date.toISOString()}",
-  "func": "function hello() { return \'hello world\' }",
-  "reg": "_PxEgEr_/%name%/"
-}
-```
+  "buffer": "_BuffEx_%7B%22type%22%3A%22Buffer%22%2C%22data%22%3A%5B104%2C105%5D%7D",
+  "date": "_DateEx_2017-10-20T07%3A00%3A00.000Z",
+  "func": "_FuncRa_function%20hello()%20%7B%20return%20&#39;hello%20world&#39;%20%7D",
+  "reg": "_PxEgEr_%5B%22%25name%25%22%2C%22%22%5D"
+}```
 
 ### Parse
 
@@ -62,38 +61,38 @@ const string = `{
   "name": "Hello world",
   "person": true,
   "age": 100000,
-  "buffer": "_BuffEx_{\"type\":\"Buffer\",\"data\":[104,105]}",
-  "date": "_DateEx_2017-05-25T21:27:35.315Z",
-  "func": "function hello() { return \'hello world\' }",
-  "reg": "_PxEgEr_/%name%/"
-}`
+  "buffer": "_BuffEx_%7B%22type%22%3A%22Buffer%22%2C%22data%22%3A%5B104%2C105%5D%7D",
+  "date": "_DateEx_2017-10-20T07%3A00%3A00.000Z",
+  "func": "_FuncRa_function%20hello()%20%7B%20return%20&#39;hello%20world&#39;%20%7D",
+  "reg": "_PxEgEr_%5B%22%25name%25%22%2C%22%22%5D"
+}`;
 const output = JSONex.parse(string);
 ```
 
 ### output
 
 ```javascript
-{
-  name: 'Hello world',
+{ name: 'Hello world',
   person: true,
   age: 100000,
   buffer: <Buffer 68 69>,
-  date: Thu May 25 2017 14:27:35 GMT-0700 (PDT),
+  date: 2017-10-20T07:00:00.000Z,
   func: [Function: hello],
   reg: /%name%/
-}```
+}
+```
 
 ## Benchmark
 
 > run benchmarks by running `npm run benchmark`
 
 ```bash
-    json-ex
-    89,066 op/s » Stringify
-    131,959 op/s » Parse
+json-ex
+  41,763 op/s » Stringify
+ 87,266 op/s » Parse
 
 
-    Suites:  1
-    Benches: 2
-    Elapsed: 2,328.64 ms
+Suites:  1
+Benches: 2
+Elapsed: 1,760.74 ms
 ```

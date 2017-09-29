@@ -28,12 +28,12 @@ test('json-ex', (t) => {
             reg: new RegExp('%name%')
         };
         const output = JSONex.stringify(object);
-        t.equal(output, `{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_{\\"type\\":\\"Buffer\\",\\"data\\":[104,105]}","date":"_DateEx_${object.date.toISOString()}","func":"_FuncRa_\\"function hello() { return 'hello world' }\\"","reg":"_PxEgEr_[\\"%name%\\",\\"\\"]"}`);
+        t.equal(output, '{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_%7B%22type%22%3A%22Buffer%22%2C%22data%22%3A%5B104%2C105%5D%7D","date":"_DateEx_2017-10-20T07%3A00%3A00.000Z","func":"_FuncRa_function%20hello()%20%7B%20return%20&#39;hello%20world&#39;%20%7D","reg":"_PxEgEr_%5B%22%25name%25%22%2C%22%22%5D"}');
         t.end();
     });
 
     t.test('should be able to parse a complex object', (t) => {
-      const j = '{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_{\\"type\\":\\"Buffer\\",\\"data\\":[104,105]}","date":"_DateEx_2017-10-20T07:00:00.000Z","func":"_FuncRa_\\"function hello() { return \'hello world\' }\\"","reg":"_PxEgEr_[\\"%name%\\",\\"\\"]"}';
+      const j = '{"name":"Hello world","person":true,"age":100000,"buffer":"_BuffEx_%7B%22type%22%3A%22Buffer%22%2C%22data%22%3A%5B104%2C105%5D%7D","date":"_DateEx_2017-10-20T07%3A00%3A00.000Z","func":"_FuncRa_function%20hello()%20%7B%20return%20&#39;hello%20world&#39;%20%7D","reg":"_PxEgEr_%5B%22%25name%25%22%2C%22%22%5D"}';
       const parsed = JSONex.parse(j);
 
       t.equal(parsed.date.constructor.name, 'Date');
@@ -58,6 +58,7 @@ test('json-ex', (t) => {
             moment
         };
         const output = JSONex.stringify(object);
+
         const parsed = JSONex.parse(output);
 
         t.equal(parsed.date.constructor.name, 'Date');
@@ -70,17 +71,17 @@ test('json-ex', (t) => {
         t.equal(parsed.quickFunc(), 'hello world');
         t.end();
     });
-    
+
     t.test('should be able to stringify/parse RegExp with flags', (t) => {
         const object = {
-          contrived: /example/i          
+          contrived: /example/i
         };
-        
+
         const string = JSONex.stringify(object);
         const parsed = JSONex.parse(string);
-        
+
         t.equal(object.contrived.test('ExAmPlE'), true);
         t.equal(parsed.contrived.test('ExAmPlE'), true);
         t.end();
-    })
+    });
 });
