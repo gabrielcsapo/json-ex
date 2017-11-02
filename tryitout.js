@@ -1,25 +1,15 @@
+const { name, description } = require('./package.json');
+
 module.exports = {
-  title: "json-ex",
-  description: "Parsing JSON like it is 2017",
+  title: name,
+  description: description,
   nav: {
     Source: "https://github.com/gabrielcsapo/json-ex"
   },
   options: {
-    width: "90%"
+    width: "60%"
   },
   body: [{
-    type: "text",
-    value: `
-    <div style="text-align: center;">
-      <blockquote style="width: auto;display: inline-block;">
-        <p>
-          <a href="https://github.com/gabrielcsapo/json-ex">
-          <code>json-ex</code></a> extends JSON to be able to serialize and deserialize more than just basic primitives
-        </p>
-      </blockquote>
-    </div>
-    `
-  }, {
     type: "code",
     title: "Encode",
     value: `

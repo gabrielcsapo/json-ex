@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "author": "Gabriel J. Csapo <gabecsapo@gmail.com>",
   "license": "MIT",
-  "description": "Extends JSON to be able to serialize and deserialize more than just basic primitives",
+  "description": "🧠 extends JSON to be able to serialize and deserialize more than just basic primitives",
   "repository": {
     "type": "git",
     "url": "https://github.com/gabrielcsapo/json-ex"
@@ -28,14 +28,14 @@
     "node": ">= 6"
   },
   "devDependencies": {
-    "browserify": "^14.4.0",
-    "eslint": "^4.7.2",
+    "browserify": "^14.5.0",
+    "eslint": "^4.10.0",
     "matcha": "^0.7.0",
-    "moment": "^2.18.1",
+    "moment": "^2.19.1",
     "tap": "^10.7.2",
     "tap-diff": "^0.1.1",
     "tape": "^4.8.0",
-    "tryitout": "^0.2.1",
+    "tryitout": "^0.3.8",
     "uglify-js-es6": "^2.8.9",
     "uglifyify": "^4.0.4"
   }

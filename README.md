@@ -7,7 +7,7 @@
 [![npm](https://img.shields.io/npm/dt/json-ex.svg?maxAge=2592000)]()
 [![npm](https://img.shields.io/npm/dm/json-ex.svg?maxAge=2592000)]()
 
-> Extends JSON to  be able to serialize and deserialize more than just basic primitives
+> 🧠 extends JSON to be able to serialize and deserialize more than just basic primitives
 
 # What is this?
 
